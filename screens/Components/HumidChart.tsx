@@ -8,9 +8,10 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 type TempChartTypes ={
     progress: number;
     fullrange: number;
+    status: string;
 }
 
-const HumidChart = ({progress, fullrange}:TempChartTypes) => {
+const HumidChart = ({progress, fullrange, status}:TempChartTypes) => {
     const CIRCUMFERENCE=350;
     const R = CIRCUMFERENCE / (2*Math.PI);
     const STROKE_WIDTH=20;
@@ -42,37 +43,71 @@ const HumidChart = ({progress, fullrange}:TempChartTypes) => {
     <View style={styles.container}>
       <ReText text={animatedText}
       style={styles.text}/>
-      <Svg 
-      width={DIAMETER}
-      height={DIAMETER}
-    viewBox={`0 0 ${DIAMETER} ${DIAMETER}`}>
-        <G origin={`${HALF_CIRCLE},${HALF_CIRCLE}`} rotation={'-90'}>
-            <AnimatedCircle
-            animatedProps={animatedProps}
-            fill={'transparent'}
-            r={R}
-            cx={'50%'}
-            cy={'50%'}
-            stroke={'green'}
-            strokeWidth={STROKE_WIDTH}
-            strokeLinecap='round'
-            strokeDasharray={CIRCUMFERENCE}
-
-            />
-
-            <Circle
-            fill={'transparent'}
-            stroke={'white'}
-            r={R}
-            cx={'50%'}
-            cy={'50%'}
-            strokeWidth={STROKE_WIDTH}
-            strokeLinecap='round'
-            strokeDasharray={CIRCUMFERENCE}
-            strokeOpacity={0.3}
-            />
-        </G>
-      </Svg>
+     { status==='No maintenance required' ? (
+         <Svg 
+         width={DIAMETER}
+         height={DIAMETER}
+       viewBox={`0 0 ${DIAMETER} ${DIAMETER}`}>
+           <G origin={`${HALF_CIRCLE},${HALF_CIRCLE}`} rotation={'-90'}>
+               <AnimatedCircle
+               animatedProps={animatedProps}
+               fill={'transparent'}
+               r={R}
+               cx={'50%'}
+               cy={'50%'}
+               stroke={'green'}
+               strokeWidth={STROKE_WIDTH}
+               strokeLinecap='round'
+               strokeDasharray={CIRCUMFERENCE}
+   
+               />
+   
+               <Circle
+               fill={'transparent'}
+               stroke={'white'}
+               r={R}
+               cx={'50%'}
+               cy={'50%'}
+               strokeWidth={STROKE_WIDTH}
+               strokeLinecap='round'
+               strokeDasharray={CIRCUMFERENCE}
+               strokeOpacity={0.3}
+               />
+           </G>
+         </Svg>) : (
+             <Svg 
+             width={DIAMETER}
+             height={DIAMETER}
+           viewBox={`0 0 ${DIAMETER} ${DIAMETER}`}>
+               <G origin={`${HALF_CIRCLE},${HALF_CIRCLE}`} rotation={'-90'}>
+                   <AnimatedCircle
+                   animatedProps={animatedProps}
+                   fill={'transparent'}
+                   r={R}
+                   cx={'50%'}
+                   cy={'50%'}
+                   stroke={'red'}
+                   strokeWidth={STROKE_WIDTH}
+                   strokeLinecap='round'
+                   strokeDasharray={CIRCUMFERENCE}
+       
+                   />
+       
+                   <Circle
+                   fill={'transparent'}
+                   stroke={'white'}
+                   r={R}
+                   cx={'50%'}
+                   cy={'50%'}
+                   strokeWidth={STROKE_WIDTH}
+                   strokeLinecap='round'
+                   strokeDasharray={CIRCUMFERENCE}
+                   strokeOpacity={0.3}
+                   />
+               </G>
+             </Svg>
+         )
+     }
     </View>
   )
 }

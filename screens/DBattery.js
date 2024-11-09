@@ -1,11 +1,10 @@
 import { View, Text } from 'react-native'
 import React,{useState} from 'react'
-import {Canvas} from '@react-three/fiber/native'
+import {Canvas} from '@react-three/fiber'
 import MotorModel from './Model/MotorModel'
 import useControls from "r3f-native-orbitcontrols"
 import HamburgerButton from './Components/HamburgerButton'
 import { XR, ARButton } from '@react-three/xr'
-import XrHitModel from './Model/Container'
 import VRToggleButton from './Model/VRToggleButton'
 const DBattery = () => {
   const [isRotating, setIsRotating] = useState(false)
@@ -21,9 +20,9 @@ const DBattery = () => {
             <pointLight/>
             <spotLight/>
             <hemisphereLight skyColor="#808080" groundColor="#013220" intensity={1}/>
-            <OrbitControls enableZoom={true} maxPolarAngle={Math.PI} minPolarAngle={0}/>
-            <XrHitModel/>
-            </XR>
+            {/* <OrbitControls enableZoom={true} maxPolarAngle={Math.PI} minPolarAngle={0}/> */}
+            
+          </XR>
         </Canvas>
     </View>
   )

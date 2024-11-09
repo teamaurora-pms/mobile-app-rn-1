@@ -8,9 +8,10 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 type VoltageChartTypes ={
     progress: number;
     fullrange: number;
+    status: string
 }
 
-const VoltageChart = ({progress, fullrange}:VoltageChartTypes) => {
+const VoltageChart = ({progress, fullrange, status}:VoltageChartTypes) => {
     const CIRCUMFERENCE=350;
     const R = CIRCUMFERENCE / (2*Math.PI);
     const STROKE_WIDTH=20;
@@ -19,6 +20,7 @@ const VoltageChart = ({progress, fullrange}:VoltageChartTypes) => {
 
     const progressValue= useSharedValue(0);
     const fullrangeValue=fullrange;
+    const stat=status;
 
     useEffect(()=>{
        if(!progress){
@@ -42,10 +44,45 @@ const VoltageChart = ({progress, fullrange}:VoltageChartTypes) => {
     <View style={styles.container}>
       <ReText text={animatedText}
       style={styles.text}/>
-      <Svg 
+      {status === 'No maintenance required' ? (
+        <Svg 
+        width={DIAMETER}
+        height={DIAMETER}
+      viewBox={`0 0 ${DIAMETER} ${DIAMETER}`}>
+          
+          <G origin={`${HALF_CIRCLE},${HALF_CIRCLE}`} rotation={'-90'}>
+              <AnimatedCircle
+              animatedProps={animatedProps}
+              fill={'transparent'}
+              r={R}
+              cx={'50%'}
+              cy={'50%'}
+              stroke={'green'}
+              strokeWidth={STROKE_WIDTH}
+              strokeLinecap='round'
+              strokeDasharray={CIRCUMFERENCE}
+  
+              />
+  
+              <Circle
+              fill={'transparent'}
+              stroke={'white'}
+              r={R}
+              cx={'50%'}
+              cy={'50%'}
+              strokeWidth={STROKE_WIDTH}
+              strokeLinecap='round'
+              strokeDasharray={CIRCUMFERENCE}
+              strokeOpacity={0.3}
+              />
+          </G>
+        </Svg>
+      ):(
+        <Svg 
       width={DIAMETER}
       height={DIAMETER}
     viewBox={`0 0 ${DIAMETER} ${DIAMETER}`}>
+        
         <G origin={`${HALF_CIRCLE},${HALF_CIRCLE}`} rotation={'-90'}>
             <AnimatedCircle
             animatedProps={animatedProps}
@@ -53,7 +90,7 @@ const VoltageChart = ({progress, fullrange}:VoltageChartTypes) => {
             r={R}
             cx={'50%'}
             cy={'50%'}
-            stroke={'green'}
+            stroke={'red'}
             strokeWidth={STROKE_WIDTH}
             strokeLinecap='round'
             strokeDasharray={CIRCUMFERENCE}
@@ -73,6 +110,7 @@ const VoltageChart = ({progress, fullrange}:VoltageChartTypes) => {
             />
         </G>
       </Svg>
+      )}
     </View>
   )
 }

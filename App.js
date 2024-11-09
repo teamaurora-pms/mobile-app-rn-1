@@ -1,13 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Switch, Text, View, Dimensions,Image, TouchableOpacity } from 'react-native';
-import { useColorScheme } from 'react-native';
+import { Text, View, Image } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
-//Import files for Navigation
-import {Feather} from '@expo/vector-icons'
-import logo from './assets/bondap.png'
 //Navigation Drawer Screen
 import {createDrawerNavigator,DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native'
@@ -16,10 +10,6 @@ import Dashboard from './screens/Dashboard';
 import BatteryDashboard from './screens/BatteryDashboard';
 import PAMotor from './screens/PAMotor';
 import PABattery from './screens/PABattery';
-import DMotor from './screens/DMotor';
-import DBattery from './screens/DBattery';
-import ThermalMapMotor from './screens/ThermalMapMotor'; 
-import ThermalMapBattery from './screens/ThermalMapBattery';
 import Webview from './screens/Webview';
 
 const Drawer = createDrawerNavigator();
@@ -67,11 +57,7 @@ export default function App() {
       <Drawer.Navigator initialRouteName="MotorDash" screenOptions={{headerShown: false}} drawerContent={(props) => <CustomDrawerContent {...props} />}>
           <Drawer.Screen name="MotorDash" component={MotorDash} options={{drawerLabel: 'Motor Dashboard'}}/>
           <Drawer.Screen name="BatteryDash" component={BatteryDash} options={{drawerLabel: 'Battery Dashboard'}}/>
-          <Drawer.Screen name="DMotor" component={DMotor} options={{drawerLabel: 'MotorAR'}}/>
-          <Drawer.Screen name="DBattery" component={DBattery} options={{drawerLabel: 'BatteryAR'}}/>
-          <Drawer.Screen name="ThermalMapMotor" component={ThermalMapMotor} options={{drawerLabel: 'Motor ThermalAR'}}/>
-          <Drawer.Screen name="ThermalMapBattery" component={ThermalMapBattery} options={{drawerLabel: 'Battery ThermalAR'}}/>
-          <Drawer.Screen name="Webview" component={Webview} options={{drawerLabel: 'Webview'}}/>
+          <Drawer.Screen name="Webview" component={Webview} options={{drawerLabel: 'About'}}/>
       </Drawer.Navigator>
     </NavigationContainer>
   );
